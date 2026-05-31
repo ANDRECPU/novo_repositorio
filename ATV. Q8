@@ -1,0 +1,66 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+#define MAX 2000
+
+char canvas[MAX][MAX];
+
+void inicializa(int tamanho) {
+    for (int i = 0; i < tamanho; i++)
+        for (int j = 0; j < tamanho; j++)
+            canvas[i][j] = ' ';
+}
+
+void imprime(int tamanho) {
+    for (int i = 0; i < tamanho; i++) {
+        for (int j = 0; j < tamanho; j++) {
+            putchar(canvas[i][j]);
+        }
+        putchar('\n');
+    }
+}
+
+// Função recursiva para desenhar estrela de 6 pontas
+void desenhaEstrela(int cx, int cy, int tamanho, int nivel) {
+    if (nivel == 0) return;
+
+    // desenha estrela básica (N=1)
+    for (int i = -tamanho; i <= tamanho; i++) {
+        canvas[cy - abs(i)][cx + i] = '*';
+        canvas[cy + abs(i)][cx + i] = '*';
+    }
+
+    // se nível > 1, desenha estrelas menores nas pontas
+    if (nivel > 1) {
+        int novoTam = tamanho / 2;
+        // pontas superior, inferior, esquerda, direita, diagonal
+        desenhaEstrela(cx, cy - tamanho, novoTam, nivel - 1);
+        desenhaEstrela(cx, cy + tamanho, novoTam, nivel - 1);
+        desenhaEstrela(cx - tamanho, cy, novoTam, nivel - 1);
+        desenhaEstrela(cx + tamanho, cy, novoTam, nivel - 1);
+        desenhaEstrela(cx - tamanho, cy - tamanho, novoTam, nivel - 1);
+        desenhaEstrela(cx + tamanho, cy - tamanho, novoTam, nivel - 1);
+        desenhaEstrela(cx - tamanho, cy + tamanho, novoTam, nivel - 1);
+        desenhaEstrela(cx + tamanho, cy + tamanho, novoTam, nivel - 1);
+    }
+}
+
+int main() {
+    int N;
+    do {
+        printf("Informe o nível N (1 a 3): ");
+        scanf("%d", &N);
+        if (N < 1 || N > 3) {
+            printf("Valor inválido! Tente novamente.\n");
+        }
+    } while (N < 1 || N > 3);
+
+    int tamanho = 40; // tamanho base para N=1
+    inicializa(MAX);
+
+    desenhaEstrela(MAX/2, MAX/2, tamanho, N);
+
+    imprime(MAX);
+
+    return 0;
+}
