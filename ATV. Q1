@@ -1,0 +1,42 @@
+#include <stdio.h>
+
+int main() {
+    int tamanho = 0;
+    int tipo = 0;
+
+    printf("Insira o tamanho LxC da sua matrix: ");
+    scanf("%d", &tamanho);
+
+    printf("Matrix preenchida: 1\nMatrix Vazada: 0\nInsira a opcao: ");
+    scanf("%d", &tipo);
+
+    switch(tipo) {
+        case 1: // Matrix preenchida
+            for(int i = 0; i < tamanho; i++) {
+                for(int j = 0; j < tamanho; j++) {
+                    printf("*");
+                }
+                printf("\n");
+            }
+            break;
+
+        case 0: // Matrix vazada
+            for(int i = 0; i < tamanho; i++) {
+                for(int j = 0; j < tamanho; j++) {
+                    if(i == 0 || i == tamanho - 1 || j == 0 || j == tamanho - 1) {
+                        printf("* ");
+                    } else {
+                        printf("  ");
+                    }
+                }
+                printf("\n");
+            }
+            break;
+
+        default: // Caso inválido
+            printf("Opcao invalida!\n");
+            break;
+    }
+
+    return 0;
+}
