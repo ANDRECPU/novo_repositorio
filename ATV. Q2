@@ -1,0 +1,57 @@
+#include <stdio.h>
+
+int main() {
+    int N, tipo;
+
+    printf("Digite o valor de N igualou maior a 2: ");
+    scanf("%d", &N);
+
+    printf("Escolha o tipo:\n");
+    printf("1 - Piramide completa\n");
+    printf("2 - Piramide invertida\n");
+    scanf("%d", &tipo);
+
+    switch(tipo) {
+        case 1: // Pirâmide completa
+            for(int i = 1; i <= N; i++) {
+                // Espaços à esquerda
+                for(int j = 0; j < N - i; j++) {
+                    printf("  ");
+                }
+                // Parte crescente
+                for(int j = 1; j <= i; j++) {
+                    printf("%d ", j);
+                }
+                // Parte decrescente
+                for(int j = i - 1; j >= 1; j--) {
+                    printf("%d ", j);
+                }
+                printf("\n");
+            }
+            break;
+
+        case 2: // Pirâmide invertida
+            for(int i = N; i >= 1; i--) {
+                // Espaços à esquerda
+                for(int j = 0; j < N - i; j++) {
+                    printf("  ");
+                }
+                // Parte crescente
+                for(int j = 1; j <= i; j++) {
+                    printf("%d ", j);
+                }
+                // Parte decrescente
+                for(int j = i - 1; j >= 1; j--) {
+                    printf("%d ", j);
+                }
+                printf("\n");
+            }
+            break;
+
+        default:
+            printf("Opcao invalida!\n");
+            break;
+    }
+
+    return 0;
+}
