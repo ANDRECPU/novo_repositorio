@@ -1,0 +1,64 @@
+#include <stdio.h>
+
+int main() {
+    int N;
+    do {
+        printf("Informe o valor de N (>=3): ");
+        scanf("%d", &N);
+        if (N < 3) {
+            printf("Valor inválido! Tente novamente.\n");
+        }
+    } while (N < 3);
+
+    int matriz[N][N];
+    int valor = 1;
+    int topo = 0, baixo = N - 1, esquerda = 0, direita = N - 1;
+
+    while (topo <= baixo && esquerda <= direita) {
+        // esquerda → direita
+        for (int j = esquerda; j <= direita; j++) {
+            matriz[topo][j] = valor++;
+        }
+        topo++;
+
+        // cima → baixo
+        for (int i = topo; i <= baixo; i++) {
+            matriz[i][direita] = valor++;
+        }
+        direita--;
+
+        // direita → esquerda
+        if (topo <= baixo) {
+            for (int j = direita; j >= esquerda; j--) {
+                matriz[baixo][j] = valor++;
+            }
+            baixo--;
+        }
+
+        // baixo → cima
+        if (esquerda <= direita) {
+            for (int i = baixo; i >= topo; i--) {
+                matriz[i][esquerda] = valor++;
+            }
+            esquerda++;
+        }
+    }
+
+    // largura para alinhar os números
+    int largura = 0;
+    int max = N * N;
+    while (max > 0) {
+        largura++;
+        max /= 10;
+    }
+
+    // impressão da matriz
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++) {
+            printf("%*d ", largura, matriz[i][j]);
+        }
+        printf("\n");
+    }
+
+    return 0;
+}
